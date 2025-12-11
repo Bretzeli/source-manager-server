@@ -15,11 +15,11 @@ var app = express();
 
 
 app.use(logger('dev'));
+// Mount better-auth handler BEFORE express.json() middleware
+app.all("/api/auth/*", toNodeHandler(auth));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.all("/api/auth/{*any}", toNodeHandler(auth));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
