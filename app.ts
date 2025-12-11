@@ -1,4 +1,4 @@
-import { auth } from "./src/lib/auth.ts"; 
+import { auth } from "./src/lib/auth.js"; 
 import { toNodeHandler } from "better-auth/node";
 import createError from 'http-errors';
 import express from 'express';
