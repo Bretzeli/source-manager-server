@@ -10,10 +10,16 @@ import usersRouter from './src/routes/users.js';
 
 const app: express.Application = express();
 
-
 app.use(logger('dev'));
+
+// Health check route (no auth/db needed) - register before auth
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Mount better-auth handler BEFORE express.json() middleware
 app.all("/api/auth/*", toNodeHandler(auth));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
